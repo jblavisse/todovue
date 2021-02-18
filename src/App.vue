@@ -7,7 +7,7 @@
     {{taskUser}}
     <ul>
       <li v-for="task in tasks" :key="task.id">
-        <Task :id="task.id" :title="task.title" />
+        <Task :id="task.id" :title="task.title" :completed="task.completed" />
       </li>
     </ul>
   </div>
@@ -15,6 +15,7 @@
 
 <script>
 import Task from './components/Task';
+import axios from 'axios';
 
 export default {
   name: 'App',
@@ -23,13 +24,15 @@ export default {
   },
   data: function() {
     return {
-    tasks:  [
-      {id: 1, title: "Faire à manger", completed: false},
-      {id: 2, title: "Faire la vaiselle", completed: true},
-      {id: 3, title: "Dormir", completed:false}
-    ],
+    tasks:  [],
     taskUser: ""
     }
+  },
+  mounted () {
+    axios.get("https://jsonplaceholder.typicode.com/todos")
+    .then(res => {
+      this.tasks = res.data;
+    })
   },
   methods: {
     addTask: function(e) {
