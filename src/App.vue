@@ -2,11 +2,12 @@
   <div id="app">
     <form>
       <input v-model="taskUser" />
+      <button @click="addTask">OK</button>
     </form>
     {{taskUser}}
     <ul>
       <li v-for="task in tasks" :key="task.id">
-        <Task :title="task.title" />
+        <Task :id="task.id" :title="task.title" />
       </li>
     </ul>
   </div>
@@ -29,7 +30,21 @@ export default {
     ],
     taskUser: ""
     }
-  } 
+  },
+  methods: {
+    addTask: function(e) {
+      e.preventDefault();
+      console.log(this.taskUser);
+
+      this.tasks.push({
+        id: this.tasks.length+1,
+        title: this.taskUser,
+        completed:false
+      });
+
+      this.taskUser = "";
+    }
+  }
 }
 </script>
 

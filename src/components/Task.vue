@@ -1,6 +1,6 @@
 <template>
     <div class="task">
-        {{title}}
+       {{id}} {{title}}
     </div>
 </template>
 
@@ -8,6 +8,7 @@
 export default {
     name: 'Task',
     props: {
+        id: Number,
         title: String
     }
 }
